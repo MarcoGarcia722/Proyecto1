@@ -2,9 +2,10 @@
 #include <conio.h>
 main()
 {
- int op,d;
+ int op,d,h;
+ char[20];
  clrscr();
- printf("\t Bienvenidos:");
+ printf("\t Bienvenidos a si horario:");
  printf("\t \t \n Menu de opciones:");
  printf("\n 1.Ingresar una nueva hora de clases:");
  printf("\n 2.Ver el horario de hoy:");
@@ -16,6 +17,21 @@ main()
  {
   case 1:
         printf("\n Ingrese una nueva hora de clases:");
+        scanf("%c",&h);
+        switch(h)
+        {
+         case 7:
+         printf("7H00");
+         brak;
+         case 8:
+         printf("8H00");
+         break;
+         case 9:
+         printf("10H00");
+         break;
+         case 10:
+         printf("11H00");
+        }
 
   case 2:
 
