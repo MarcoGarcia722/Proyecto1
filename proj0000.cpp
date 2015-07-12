@@ -20,17 +20,34 @@ main()
         scanf("%c",&h);
         switch(h)
         {
-         case 7:
-         printf("7H00");
+         case 1:
+         printf("07H00-08H00");
          brak;
+         case 2:
+         printf("08H00-09H00");
+         break;
+         case 3:
+         printf("09H00-10H00");
+         break;
+         case 4:
+         printf("10H00-11H00");
+         break;
+         case 5:
+         printf("11H00-12H00");
+         break;
+         case 6:
+         printf("12H00-13H00");
+         break;
+         case 7:
+         printf("13H00-14H00""ALMUERZO");
+         break;
          case 8:
-         printf("8H00");
+         printf("14H00-15H00");
          break;
          case 9:
-         printf("10H00");
+         printf("15H00-16H00");
          break;
-         case 10:
-         printf("11H00");
+
         }
 
   case 2:

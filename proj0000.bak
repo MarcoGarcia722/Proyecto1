@@ -17,6 +17,7 @@ main()
  {
   case 1:
         printf("\n Ingrese una nueva hora de clases:");
+        scanf("%c",&h);
         switch(h)
         {
          case 7:
