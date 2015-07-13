@@ -2,7 +2,7 @@
 #include <conio.h>
 main()
 {
- int op,d,h;
+ int op,d,h,s;
  char[20];
  clrscr();
  printf("\t Bienvenidos a si horario:");
@@ -78,6 +78,38 @@ main()
          case 5:
          		printf("\n\nLunes:\n\n}PRogramacion\nAlgebra\nIngles\nMatematicas\nFisica\n\n");
                break;
+        }
+        printf("\n Sus semestres:");
+        scanf("%d",&s);
+        switch(s)
+        {
+         case 1:
+              printf("\n PRIMER SEMESTRE:");
+              break;
+         case 2:
+              printf("\n SEGUNDO SEMESTRE:");
+              break;
+         case 3:
+              printf("\n TERCER SEMESTRE:");
+              break;
+         case 4:
+              printf("\n CUARTO SEMESTRE:");
+              break;
+         case 5:
+              printf("\n QUINTO SEMESTRE:");
+              break;
+         case 6:
+              printf("\n SEXTO SEMESTRE:");
+              break;
+         case 7:
+              printf("\n OCTAVO SEMESTRE:");
+              break;
+         case 9:
+              printf("\n NOVENO SEMESTRE:");
+              break;
+         case 10:
+              printf("\n DECIMO SEMESTRE:");
+              break;
         }
 
   default:
