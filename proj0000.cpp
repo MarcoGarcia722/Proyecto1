@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <conio.h>
-main()
+void main(void)
 {
+
  int op,d,h,s;
- char[20];
  clrscr();
  printf("\t Bienvenidos a si horario:");
  printf("\t \t \n Menu de opciones:");
@@ -13,6 +13,7 @@ main()
  printf("\n 4.Salir:");
  printf("\n Porfavor ingrese la opcion que desea:");
  scanf("%d",&op);
+
  switch(op)
  {
   case 1:
@@ -22,7 +23,7 @@ main()
         {
          case 1:
          printf("07H00-08H00");
-         brak;
+         break;
          case 2:
          printf("08H00-09H00");
          break;
