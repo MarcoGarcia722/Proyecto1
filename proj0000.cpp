@@ -1,5 +1,15 @@
 #include <stdio.h>
 #include <conio.h>
+
+// Definicion de Struct  
+
+struct hora_clase
+{
+ 	char nombre_materia[50], nombre_semestre[50];
+   char dia_semana[3];
+   char hora_inicio[5], hora_fin[5];
+};
+
 int menu()
 {
 	int opcion;
@@ -9,9 +19,15 @@ int menu()
  	printf("\n 2.Ver el horario de hoy:");
  	printf("\n 3.Horario de la semana:");
  	printf("\n 4.Salir:");
- 	printf("\n Porfavor ingrese la opcion que desea:\n");
+ 	printf("\n Por favor seleccione la opcion que desea:\n");
  	scanf("%d",&opcion);
  	return opcion;
+}
+
+hora_clase ingresarHoraClase()
+{
+      struct hora_clase hora;
+      return hora;
 }
 
 int subMenuDiasSemana()
