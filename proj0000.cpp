@@ -16,6 +16,46 @@ void main(void)
 
  switch(op)
  {
+int menu()
+{
+	int opcion;
+ 	printf("\t Bienvenidos:");
+ 	printf("\t \t \n Menu de opciones:");
+ 	printf("\n 1.Ingresar una nueva hora de clases:");
+ 	printf("\n 2.Ver el horario de hoy:");
+ 	printf("\n 3.Horario de la semana:");
+ 	printf("\n 4.Salir:");
+ 	printf("\n Porfavor ingrese la opcion que desea:\n");
+ 	scanf("%d",&opcion);
+ 	return opcion;
+}
+
+int subMenuDiasSemana()
+{
+   int opcion;
+	printf("\n horario:");
+   printf("\n escoja el dia:");
+   printf("\n 1.Lunes");
+   printf("\n 2.Martes");
+   printf("\n 3.Miercoles");
+   printf("\n 4.Jueves");
+   printf("\n 5.Viernes");
+	printf("\n Ingrese la opcion porfavor:");
+   scanf("%d",&opcion);
+   return opcion;
+}
+
+
+ void main(void)
+{
+ int opcion, subOpcion,h,s;
+
+ clrscr();
+ opcion = menu();
+ switch(opcion){
+>>>>>>> origin/master
+void main(void)
+{
   case 1:
         printf("\n Ingrese una nueva hora de clases:");
         scanf("%c",&h);
@@ -50,19 +90,12 @@ void main(void)
          break;
 
         }
+      }
 
   case 2:
 
-        printf("\n horario:");
-        printf("\n escoja el dia:");
-        printf("\n 1.Lunes");
-        printf("\n 2.Martes");
-        printf("\n 3.Miercoles");
-        printf("\n 4.Jueves");
-        printf("\n 5.Viernes");
-        printf("\n Ingrese la opcion porfavor:");
-        scanf("%d",&d);
-        switch(d)
+       subOpcion = subMenuDiasSemana();
+        switch(subOpcion)
         {
          case 1:
          		printf("\n\nLunes:\n\nQuimica\nMAtematicaI\FisicaI\nIngles\nMEtodologiaa\n\n");
