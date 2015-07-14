@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+<<<<<<< HEAD
 void main(void)
 {
 
@@ -16,6 +17,18 @@ void main(void)
 
  switch(op)
  {
+=======
+
+// Definicion de Struct  
+
+struct hora_clase
+{
+ 	char nombre_materia[50], nombre_semestre[50];
+   char dia_semana[3];
+   char hora_inicio[5], hora_fin[5];
+};
+
+>>>>>>> origin/master
 int menu()
 {
 	int opcion;
@@ -25,9 +38,26 @@ int menu()
  	printf("\n 2.Ver el horario de hoy:");
  	printf("\n 3.Horario de la semana:");
  	printf("\n 4.Salir:");
- 	printf("\n Porfavor ingrese la opcion que desea:\n");
+ 	printf("\n Por favor seleccione la opcion que desea:\n");
  	scanf("%d",&opcion);
  	return opcion;
+}
+
+hora_clase ingresarHoraClase()
+{
+      struct hora_clase hora;
+      printf("\t Por favor ingrese los siguientes datos:");
+      printf("\n Nombre de la Materia:");
+      scanf("%s",hora.nombre_materia);
+      printf("\n Nombre del Semestre:");
+      scanf("%s",hora.nombre_semestre);
+      printf("\n Día de la Semana:");
+      scanf("%s",hora.dia_semana);
+      printf("\n Hora Inicio:");
+      scanf("%s",hora.hora_inicio);
+      printf("\n Hora Fin:");
+      scanf("%s",hora.hora_fin);
+      return hora;
 }
 
 int subMenuDiasSemana()
@@ -57,6 +87,7 @@ int subMenuDiasSemana()
 void main(void)
 {
   case 1:
+<<<<<<< HEAD
         printf("\n Ingrese una nueva hora de clases:");
         scanf("%c",&h);
         switch(h)
@@ -92,6 +123,12 @@ void main(void)
         }
       }
 
+=======
+       struct hora_clase item;
+       item = ingresarHoraClase();
+       printf("%s",item.nombre_materia);     // prueba de ingreso
+       break;
+>>>>>>> origin/master
   case 2:
 
        subOpcion = subMenuDiasSemana();
