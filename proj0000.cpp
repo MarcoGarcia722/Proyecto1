@@ -1,23 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
-<<<<<<< HEAD
-void main(void)
-{
-
- int op,d,h,s;
- clrscr();
- printf("\t Bienvenidos a si horario:");
- printf("\t \t \n Menu de opciones:");
- printf("\n 1.Ingresar una nueva hora de clases:");
- printf("\n 2.Ver el horario de hoy:");
- printf("\n 3.Horario de la semana:");
- printf("\n 4.Salir:");
- printf("\n Porfavor ingrese la opcion que desea:");
- scanf("%d",&op);
-
- switch(op)
- {
-=======
+#include <string.h>
+#include <iostream.h>
 
 // Definicion de Struct  
 
@@ -28,7 +12,18 @@ struct hora_clase
    char hora_inicio[5], hora_fin[5];
 };
 
->>>>>>> origin/master
+//  Funciones de Sistema Modular
+bool validarNombre(char nombre[50])
+{
+	bool resultado =  false;
+      if ( strlen(nombre)!=0)
+      {
+         resultado =  true;
+      }
+      
+	return resultado;
+}
+
 int menu()
 {
 	int opcion;
@@ -46,11 +41,17 @@ int menu()
 hora_clase ingresarHoraClase()
 {
       struct hora_clase hora;
-      printf("\t Por favor ingrese los siguientes datos:");
-      printf("\n Nombre de la Materia:");
-      scanf("%s",hora.nombre_materia);
-      printf("\n Nombre del Semestre:");
-      scanf("%s",hora.nombre_semestre);
+      printf("Por favor ingrese los siguientes datos:");
+      do
+		{
+  			printf("\n Nombre de la Materia:");
+      	gets(hora.nombre_materia);
+		} while (!validarNombre(hora.nombre_materia));
+       do
+		{
+      	printf("\n Nombre del Semestre:");
+      	gets(hora.nombre_semestre);
+      } while (!validarNombre(hora.nombre_semestre));
       printf("\n Día de la Semana:");
       scanf("%s",hora.dia_semana);
       printf("\n Hora Inicio:");
@@ -76,60 +77,20 @@ int subMenuDiasSemana()
 }
 
 
- void main(void)
+// Programa Principal donde llamamos a las funciones definidas arriba
+main()
 {
  int opcion, subOpcion,h,s;
 
  clrscr();
  opcion = menu();
  switch(opcion){
->>>>>>> origin/master
-void main(void)
-{
-  case 1:
-<<<<<<< HEAD
-        printf("\n Ingrese una nueva hora de clases:");
-        scanf("%c",&h);
-        switch(h)
-        {
-         case 1:
-         printf("07H00-08H00");
-         break;
-         case 2:
-         printf("08H00-09H00");
-         break;
-         case 3:
-         printf("09H00-10H00");
-         break;
-         case 4:
-         printf("10H00-11H00");
-         break;
-         case 5:
-         printf("11H00-12H00");
-         break;
-         case 6:
-         printf("12H00-13H00");
-         break;
-         case 7:
-         printf("13H00-14H00""ALMUERZO");
-         break;
-         case 8:
-         printf("14H00-15H00");
-         break;
-         case 9:
-         printf("15H00-16H00");
-         break;
-
-        }
-      }
-
-=======
+  case 1:       // Ingreso de una nueva hora de clases
        struct hora_clase item;
        item = ingresarHoraClase();
        printf("%s",item.nombre_materia);     // prueba de ingreso
        break;
->>>>>>> origin/master
-  case 2:
+  case 2:   // Ver Horario de Hoy
 
        subOpcion = subMenuDiasSemana();
         switch(subOpcion)
