@@ -1,9 +1,70 @@
+#include <Windows.h>
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
 #include <iostream.h>
+#include <fstream.h>
 
-// Definicion de Struct  
+//PROTOTIPO DE FUNCIONES
+void Tiempo();
+int Menu ();
+void IngresarHorariodeClases();
+void VerHorarioHoy();
+void VerhHorariodelaSemana();
+Void Salir();
+void Congelar ();
+//Funcion Principal
+int main ()
+{
+ int opcion;
+ Tiempo();
+ opcion)Menu();
+ while (opcion!=4)
+ {
+  switch(opcion)
+  {
+   case 1:
+          IngresarHoraiodeClases();
+          break;
+   case 2:
+         //Ver EL HORARIO DE HOY
+         //VERHORARIOhOY();
+         break;
+   case 3:
+         //Ver el horario de la semana
+         //verHorarioSeman();
+         break;
+  }
+  opcion=Menu();
+ }
+ return(0);
+}
+ void Tiempo()
+ {
+  SYSTEMTIME hora;
+  GetLocalTime(&hora);
+  printf("\t\t HORA DE INICIO:%02d:%02d:%02d\n",hora.WHour,hora.wMinute,hora.wSecond);
+ }
+ void Congelar()
+ {
+  system("PAUSE");
+ }
+ void IngresarHorrarioDeClase()
+ {
+  int indice;
+  //temaño logico para cinco digitos
+  const int TamañoLogico=5;
+  struct DatosHoraClase
+  {
+   char NombreMateria[30];
+   char NombreSemestre[20];
+   char DiaSemana[4];
+   int HoraInicio;
+   int HoraFin;
+  };
+   struct DatosHoraClase HoraClase[TamañoLogico];
+
+// Definicion de Struct
 
 struct hora_clase
 {
@@ -26,7 +87,7 @@ bool validarNombre(char nombre[50])
 	return resultado;
 }
 
-// Validar y Obtener El dia de la Semana 
+// Validar y Obtener El dia de la Semana
 char* obtenerDiaSemana(char dia[10])
 {
   if(strcmp(dia, "LUN") == 0)
@@ -55,7 +116,7 @@ char* obtenerDiaSemana(char dia[10])
           }
       }
   }
-  
+
    return dia;
 }
 
@@ -152,37 +213,6 @@ main()
          		printf("\n\nLunes:\n\n}PRogramacion\nAlgebra\nIngles\nMatematicas\nFisica\n\n");
                break;
         }
-        printf("\n Sus semestres:");
-        scanf("%d",&s);
-        switch(s)
-        {
-         case 1:
-              printf("\n PRIMER SEMESTRE:");
-              break;
-         case 2:
-              printf("\n SEGUNDO SEMESTRE:");
-              break;
-         case 3:
-              printf("\n TERCER SEMESTRE:");
-              break;
-         case 4:
-              printf("\n CUARTO SEMESTRE:");
-              break;
-         case 5:
-              printf("\n QUINTO SEMESTRE:");
-              break;
-         case 6:
-              printf("\n SEXTO SEMESTRE:");
-              break;
-         case 7:
-              printf("\n OCTAVO SEMESTRE:");
-              break;
-         case 9:
-              printf("\n NOVENO SEMESTRE:");
-              break;
-         case 10:
-              printf("\n DECIMO SEMESTRE:");
-              break;
         }
 
   default:
