@@ -13,15 +13,50 @@ struct hora_clase
 };
 
 //  Funciones de Sistema Modular
+
+// Validar nombre no vacio
 bool validarNombre(char nombre[50])
 {
 	bool resultado =  false;
-      if ( strlen(nombre)!=0)
+      if(strlen(nombre)!=0)
       {
          resultado =  true;
       }
-      
+
 	return resultado;
+}
+
+// Validar y Obtener El dia de la Semana 
+char* obtenerDiaSemana(char dia[10])
+{
+  if(strcmp(dia, "LUN") == 0)
+  {
+     dia = "Lunes";
+  } else {
+  		if(strcmp(dia, "MAR") == 0)
+      {
+         dia = "Martes";
+      } else {
+          if(strcmp(dia, "MIE") == 0)
+          {
+          	dia = "Miercoles";
+          } else {
+					if(strcmp(dia, "JUE") == 0)
+      	       {
+                  dia = "Jueves";
+                } else {
+                   if(strcmp(dia, "VIE") == 0)
+      				{
+                    dia = "Viernes";
+                	}else {
+                  	dia = "";
+                }
+             }
+          }
+      }
+  }
+  
+   return dia;
 }
 
 int menu()
@@ -52,8 +87,14 @@ hora_clase ingresarHoraClase()
       	printf("\n Nombre del Semestre:");
       	gets(hora.nombre_semestre);
       } while (!validarNombre(hora.nombre_semestre));
-      printf("\n Día de la Semana:");
-      scanf("%s",hora.dia_semana);
+      char dia[10];
+       do
+		{
+      	printf("\n Día de la Semana:");
+      	gets(dia);
+         strcpy(dia,obtenerDiaSemana(dia));
+      } while(strlen(dia)==0);
+      strcpy(hora.dia_semana,dia);
       printf("\n Hora Inicio:");
       scanf("%s",hora.hora_inicio);
       printf("\n Hora Fin:");
