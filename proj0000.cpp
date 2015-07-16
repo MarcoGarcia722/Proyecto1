@@ -5,26 +5,41 @@
 #include <iostream.h>
 #include <fstream.h>
 
+// Definicion de Struct
+const int TamanioLogico=5;
+  struct DatosHoraClase
+  {
+   char NombreMateria[30];
+   char NombreSemestre[20];
+   char DiaSemana[3];
+   int HoraInicio;
+   int MinutoInicio;
+   int HoraFin;
+   int MinutoFin;
+  };
+   struct DatosHoraClase HoraClase[TamanioLogico];
+
+
 //PROTOTIPO DE FUNCIONES
 void Tiempo();
-int Menu ();
+int Menu();
 void IngresarHorariodeClases();
 void VerHorarioHoy();
 void VerhHorariodelaSemana();
-Void Salir();
+void Salir();
 void Congelar ();
 //Funcion Principal
 int main ()
 {
  int opcion;
  Tiempo();
- opcion)Menu();
+ opcion = Menu();
  while (opcion!=4)
  {
   switch(opcion)
   {
    case 1:
-          IngresarHoraiodeClases();
+          IngresarHorariodeClases();
           break;
    case 2:
          //Ver EL HORARIO DE HOY
@@ -35,7 +50,7 @@ int main ()
          //verHorarioSeman();
          break;
   }
-  opcion=Menu();
+   opcion = Menu();
  }
  return(0);
 }
@@ -43,35 +58,12 @@ int main ()
  {
   SYSTEMTIME hora;
   GetLocalTime(&hora);
-  printf("\t\t HORA DE INICIO:%02d:%02d:%02d\n",hora.WHour,hora.wMinute,hora.wSecond);
+ // printf("\t\t HORA DE INICIO:%02d:%02d:%02d\n",hora.WHour,hora.wMinute,hora.wSecond);   Genera error no compila
  }
  void Congelar()
  {
   system("PAUSE");
  }
- void IngresarHorrarioDeClase()
- {
-  int indice;
-  //temaño logico para cinco digitos
-  const int TamañoLogico=5;
-  struct DatosHoraClase
-  {
-   char NombreMateria[30];
-   char NombreSemestre[20];
-   char DiaSemana[4];
-   int HoraInicio;
-   int HoraFin;
-  };
-   struct DatosHoraClase HoraClase[TamañoLogico];
-
-// Definicion de Struct
-
-struct hora_clase
-{
- 	char nombre_materia[50], nombre_semestre[50];
-   char dia_semana[3];
-   char hora_inicio[5], hora_fin[5];
-};
 
 //  Funciones de Sistema Modular
 
@@ -120,47 +112,58 @@ char* obtenerDiaSemana(char dia[10])
    return dia;
 }
 
-int menu()
+void IngresarHorariodeClases()
 {
-	int opcion;
- 	printf("\t Bienvenidos:");
- 	printf("\t \t \n Menu de opciones:");
- 	printf("\n 1.Ingresar una nueva hora de clases:");
- 	printf("\n 2.Ver el horario de hoy:");
- 	printf("\n 3.Horario de la semana:");
- 	printf("\n 4.Salir:");
- 	printf("\n Por favor seleccione la opcion que desea:\n");
- 	scanf("%d",&opcion);
- 	return opcion;
-}
+      struct DatosHoraClase hora;
+      printf("\n Por favor ingrese los siguientes datos: \n");
 
-hora_clase ingresarHoraClase()
-{
-      struct hora_clase hora;
-      printf("Por favor ingrese los siguientes datos:");
       do
 		{
   			printf("\n Nombre de la Materia:");
-      	gets(hora.nombre_materia);
-		} while (!validarNombre(hora.nombre_materia));
-       do
+      	gets(hora.NombreMateria);
+		} while (!validarNombre(hora.NombreMateria));
+        do
 		{
       	printf("\n Nombre del Semestre:");
-      	gets(hora.nombre_semestre);
-      } while (!validarNombre(hora.nombre_semestre));
+      	gets(hora.NombreSemestre);
+      } while (!validarNombre(hora.NombreMateria));
       char dia[10];
        do
 		{
       	printf("\n Día de la Semana:");
-      	gets(dia);
+      	gets(hora.DiaSemana);
+         strcpy(dia,hora.DiaSemana);
          strcpy(dia,obtenerDiaSemana(dia));
       } while(strlen(dia)==0);
-      strcpy(hora.dia_semana,dia);
-      printf("\n Hora Inicio:");
-      scanf("%s",hora.hora_inicio);
-      printf("\n Hora Fin:");
-      scanf("%s",hora.hora_fin);
-      return hora;
+
+      do
+      {
+      	printf("\n Hora Inicio:");
+      	scanf("%d",&hora.HoraInicio);
+      } while(hora.HoraInicio>24);
+
+      do
+      {
+      	printf("\n Minuto Inicio:");
+      	scanf("%d",&hora.MinutoInicio);
+      } while(hora.MinutoInicio>60);
+
+      do
+      {
+      	printf("\n Hora Fin:");
+      	scanf("%d",&hora.HoraFin);
+      } while(hora.HoraFin>24);
+
+      do
+      {
+      	printf("\n Minuto Fin:");
+      	scanf("%d",&hora.MinutoFin);
+      } while(hora.MinutoFin>60);
+
+
+      // Validar Hora de Clase
+     // Guardar Hora de Clase
+     // Salir
 }
 
 int subMenuDiasSemana()
@@ -179,44 +182,17 @@ int subMenuDiasSemana()
 }
 
 
-// Programa Principal donde llamamos a las funciones definidas arriba
-main()
+int Menu()
 {
- int opcion, subOpcion,h,s;
-
- clrscr();
- opcion = menu();
- switch(opcion){
-  case 1:       // Ingreso de una nueva hora de clases
-       struct hora_clase item;
-       item = ingresarHoraClase();
-       printf("%s",item.nombre_materia);     // prueba de ingreso
-       break;
-  case 2:   // Ver Horario de Hoy
-
-       subOpcion = subMenuDiasSemana();
-        switch(subOpcion)
-        {
-         case 1:
-         		printf("\n\nLunes:\n\nQuimica\nMAtematicaI\FisicaI\nIngles\nMEtodologiaa\n\n");
-               break;
-         case 2:
-         		printf("\n\nMArtes:\n\nIngles\nDeportes\nProgramacion\nFisica\nMatematicas\n\n");
-               break;
-         case 3:
-         		printf("\n\nMiercoles:\n\nAlgebra\nQuimica\nMEtodologia\nProgramacion\nMatematicas\nFisica\n\n");
-               break;
-         case 4:
-         		printf("\n\nJueves:\n\nMAtematica\nIngles\nAlgebra\nFisica\nQuimica \n\n");
-               break;
-         case 5:
-         		printf("\n\nLunes:\n\n}PRogramacion\nAlgebra\nIngles\nMatematicas\nFisica\n\n");
-               break;
-        }
-        }
-
-  default:
-  printf("No tiene ninguna opcion:");
- }
-  getch();
+	int opcion;
+ 	printf("\t Bienvenidos:");
+ 	printf("\t \t \n Menu de opciones:");
+ 	printf("\n 1.Ingresar una nueva hora de clases:");
+ 	printf("\n 2.Ver el horario de hoy:");
+ 	printf("\n 3.Horario de la semana:");
+ 	printf("\n 4.Salir:");
+ 	printf("\n Por favor seleccione la opcion que desea:\n");
+ 	scanf("%d", &opcion);
+ 	return opcion;
 }
+
