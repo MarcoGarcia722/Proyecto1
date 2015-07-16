@@ -122,11 +122,11 @@ void IngresarHorariodeClases()
   			printf("\n Nombre de la Materia:");
       	gets(hora.NombreMateria);
 		} while (!validarNombre(hora.NombreMateria));
-        do
+      do
 		{
       	printf("\n Nombre del Semestre:");
       	gets(hora.NombreSemestre);
-      } while (!validarNombre(hora.NombreMateria));
+      } while (!validarNombre(hora.NombreSemestre));
       char dia[10];
        do
 		{
@@ -162,9 +162,24 @@ void IngresarHorariodeClases()
 
 
       // Validar Hora de Clase
+
      // Guardar Hora de Clase
+     	ofstream horario;
+      horario.open("horario.txt",ios::out|ios::app);
+		if (horario.fail())
+      {
+			cout<<"Ocurrio un error al abrir el archivo";
+         getch ();
+    	}
+      else
+      {
+      	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.DiaSemana<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.HoraFin<<"\n\n";
+			horario.close();
+      }
      // Salir
 }
+
+
 
 int subMenuDiasSemana()
 {
