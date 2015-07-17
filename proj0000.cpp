@@ -11,7 +11,7 @@ const int TamanioLogico=5;
   {
    char NombreMateria[30];
    char NombreSemestre[20];
-   char DiaSemana[3];
+   char DiaSemana[4];
    int HoraInicio;
    int MinutoInicio;
    int HoraFin;
@@ -80,84 +80,91 @@ bool validarNombre(char nombre[50])
 }
 
 // Validar y Obtener El dia de la Semana
-char* obtenerDiaSemana(char dia[10])
+char* obtenerDiaSemana(DatosHoraClase hora)
 {
-  if(strcmp(dia, "LUN") == 0)
+char resultado[10];
+  if(strcmp(hora.DiaSemana, "LUN") == 0)
   {
-     dia = "Lunes";
+     strcpy(resultado,"Lunes");
   } else {
-  		if(strcmp(dia, "MAR") == 0)
+  		if(strcmp(hora.DiaSemana, "MAR") == 0)
       {
-         dia = "Martes";
+         strcpy(resultado,"Martes");
       } else {
-          if(strcmp(dia, "MIE") == 0)
+          if(strcmp(hora.DiaSemana, "MIE") == 0)
           {
-          	dia = "Miercoles";
+          	strcpy(resultado,"Miercoles");
           } else {
-					if(strcmp(dia, "JUE") == 0)
+					if(strcmp(hora.DiaSemana, "JUE") == 0)
       	       {
-                  dia = "Jueves";
+                  strcpy(resultado,"Jueves");
                 } else {
-                   if(strcmp(dia, "VIE") == 0)
+                   if(strcmp(hora.DiaSemana, "VIE") == 0)
       				{
-                    dia = "Viernes";
+                    strcpy(resultado,"Viernes");
                 	}else {
-                  	dia = "";
+                  	strcpy(resultado,"");
                 }
              }
           }
       }
   }
 
-   return dia;
+   return resultado;
 }
 
 void IngresarHorariodeClases()
 {
       struct DatosHoraClase hora;
       printf("\n Por favor ingrese los siguientes datos: \n");
-
+      fflush(stdin);
       do
 		{
-  			printf("\n Nombre de la Materia:");
+  			printf("\n Nombre de la Materia: ");
       	gets(hora.NombreMateria);
+         fflush(stdin);
 		} while (!validarNombre(hora.NombreMateria));
       do
 		{
-      	printf("\n Nombre del Semestre:");
+      	printf("\n Nombre del Semestre: ");
       	gets(hora.NombreSemestre);
+         fflush(stdin);
       } while (!validarNombre(hora.NombreSemestre));
       char dia[10];
        do
 		{
-      	printf("\n Día de la Semana:");
-      	gets(hora.DiaSemana);
-         strcpy(dia,hora.DiaSemana);
-         strcpy(dia,obtenerDiaSemana(dia));
+      	printf("\n Dia de la Semana: ");
+         gets(hora.DiaSemana);
+         strcpy(dia,obtenerDiaSemana(hora));
+         fflush(stdin);
       } while(strlen(dia)==0);
 
       do
       {
-      	printf("\n Hora Inicio:");
+      	printf("\n Hora Inicio: ");
       	scanf("%d",&hora.HoraInicio);
+         fflush(stdin);
       } while(hora.HoraInicio>24);
 
       do
       {
-      	printf("\n Minuto Inicio:");
+      	printf("\n Minuto Inicio: ");
       	scanf("%d",&hora.MinutoInicio);
+         fflush(stdin);
       } while(hora.MinutoInicio>60);
 
       do
       {
-      	printf("\n Hora Fin:");
+      	printf("\n Hora Fin: ");
       	scanf("%d",&hora.HoraFin);
+         fflush(stdin);
       } while(hora.HoraFin>24);
 
       do
       {
-      	printf("\n Minuto Fin:");
+      	printf("\n Minuto Fin: ");
       	scanf("%d",&hora.MinutoFin);
+         fflush(stdin);
       } while(hora.MinutoFin>60);
 
 
@@ -208,6 +215,7 @@ int Menu()
  	printf("\n 4.Salir:");
  	printf("\n Por favor seleccione la opcion que desea:\n");
  	scanf("%d", &opcion);
+   fflush(stdin);
  	return opcion;
 }
 
