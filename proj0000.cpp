@@ -88,37 +88,41 @@ bool validarNombre(char nombre[50])
 }
 
 // Validar y Obtener El dia de la Semana
-char* obtenerDiaSemana(char dia[10])
+char* obtenerDiaSemana(DatosHoraClase hora)
 {
-  if(strcmp(dia, "LUN") == 0)
-  {
-     dia = "Lunes";
-  } else {
-  		if(strcmp(dia, "MAR") == 0)
-      {
-         dia = "Martes";
-      } else {
-          if(strcmp(dia, "MIE") == 0)
-          {
-          	dia = "Miercoles";
-          } else {
-					if(strcmp(dia, "JUE") == 0)
-      	       {
-                  dia = "Jueves";
-                } else {
-                   if(strcmp(dia, "VIE") == 0)
-      				{
-                    dia = "Viernes";
-                	}else {
-                  	dia = "";
-                }
-             }
-          }
-      }
-  }
-
-   return dia;
+   char resultado[10] = "";
+	if (strcmp(hora.DiaSemana,"LUN")==0 || strcmp(hora.DiaSemana,"Lun")==0 || strcmp(hora.DiaSemana,"lun")==0) {
+   	strcpy(resultado,"Lunes");
+  	}
+   if (strcmp(hora.DiaSemana,"MAR")==0 || strcmp(hora.DiaSemana,"Mar")==0 || strcmp(hora.DiaSemana,"mar")==0) {
+   	strcpy(resultado,"Martes");
+  	}
+   if (strcmp(hora.DiaSemana,"MIE")==0 || strcmp(hora.DiaSemana,"Mie")==0 || strcmp(hora.DiaSemana,"mie")==0) {
+   	strcpy(resultado,"Miercoles");
+  	}
+   if (strcmp(hora.DiaSemana,"JUE")==0 || strcmp(hora.DiaSemana,"Jue")==0 || strcmp(hora.DiaSemana,"jue")==0) {
+   	strcpy(resultado,"Jueves");
+  	}
+   if (strcmp(hora.DiaSemana,"VIE")==0 || strcmp(hora.DiaSemana,"Vie")==0 || strcmp(hora.DiaSemana,"vie")==0) {
+   	strcpy(resultado,"Viernes");
+  	}
+   return resultado;
 }
+
+bool ValidarHoras(DatosHoraClase hora){
+
+	bool resultado = false;
+   int hora_inicio = hora.MinutoInicio + (hora.HoraInicio * 60);
+   int hora_fin = hora.MinutoFin + (hora.HoraFin * 60);
+   if(hora_inicio < hora_fin){
+        resultado = true;
+   } else {
+    	printf("\n La hora de Inicio debe ser Menor que la hora Fin \n");
+   }
+   return resultado;
+}
+
+
 
 int menu()
 {
@@ -155,6 +159,38 @@ hora_clase ingresarHoraClase()
       	gets(dia);
          strcpy(dia,obtenerDiaSemana(dia));
       } while(strlen(dia)==0);
+
+      do
+      {
+      	do
+      	{
+      		printf("\n Hora Inicio: ");
+      		scanf("%d",&hora.HoraInicio);
+         	fflush(stdin);
+      	} while(hora.HoraInicio>24);
+
+      	do
+      	{
+      		printf("\n Minuto Inicio: ");
+      		scanf("%d",&hora.MinutoInicio);
+         	fflush(stdin);
+      	} while(hora.MinutoInicio>60);
+
+      	do
+      	{
+      		printf("\n Hora Fin: ");
+      		scanf("%d",&hora.HoraFin);
+         	fflush(stdin);
+      	} while(hora.HoraFin>24);
+
+      	do
+      	{
+      		printf("\n Minuto Fin: ");
+      		scanf("%d",&hora.MinutoFin);
+         	fflush(stdin);
+      	} while(hora.MinutoFin>60);
+      } while(!ValidarHoras(hora));
+
       strcpy(hora.dia_semana,dia);
       printf("\n Hora Inicio:");
       scanf("%s",hora.hora_inicio);
