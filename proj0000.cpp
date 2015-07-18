@@ -21,6 +21,40 @@ const int TamanioLogico=5;
 
 
 //PROTOTIPO DE FUNCIONES
+
+void remplace(char cadena[50], char buscar[2], char reemplazar[2]){
+
+char * puntero;
+puntero = strstr (cadena,buscar);
+while(puntero != NULL){
+  strncpy (puntero,reemplazar,1);
+  puntero = strstr (cadena,buscar);
+}
+
+}
+
+void quitar_espacios(char entrada[50], char salida[50])
+{
+    int inicio_pos;
+    int longitud;
+    int actual_pos = 0;
+    //Avanza en la cadena hasta que detecta un caracter valido
+    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
+    {
+        actual_pos ++;
+    }
+    inicio_pos = actual_pos;
+
+    //Retrocede en la cadena hasta encontrar un caracter valido
+    actual_pos = strlen(entrada) - 1;
+    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
+    {
+        actual_pos --;
+    }
+    longitud = actual_pos - inicio_pos + 1;
+	 strncpy(salida, entrada + inicio_pos, longitud);
+}
+
 void Tiempo();
 int Menu();
 void IngresarHorariodeClases();
@@ -82,7 +116,6 @@ bool validarNombre(char nombre[50])
 // Validar y Obtener El dia de la Semana
 char* obtenerDiaSemana(DatosHoraClase hora)
 {
-<<<<<<< HEAD
    char resultado[10] = "";
 	if (strcmp(hora.DiaSemana,"LUN")==0 || strcmp(hora.DiaSemana,"Lun")==0 || strcmp(hora.DiaSemana,"lun")==0) {
    	strcpy(resultado,"Lunes");
@@ -115,45 +148,14 @@ bool ValidarHoras(DatosHoraClase hora){
    return resultado;
 }
 
-
-
-int menu()
-=======
-char resultado[10];
-  if(strcmp(hora.DiaSemana, "LUN") == 0)
-  {
-     strcpy(resultado,"Lunes");
-  } else {
-  		if(strcmp(hora.DiaSemana, "MAR") == 0)
-      {
-         strcpy(resultado,"Martes");
-      } else {
-          if(strcmp(hora.DiaSemana, "MIE") == 0)
-          {
-          	strcpy(resultado,"Miercoles");
-          } else {
-					if(strcmp(hora.DiaSemana, "JUE") == 0)
-      	       {
-                  strcpy(resultado,"Jueves");
-                } else {
-                   if(strcmp(hora.DiaSemana, "VIE") == 0)
-      				{
-                    strcpy(resultado,"Viernes");
-                	}else {
-                  	strcpy(resultado,"");
-                }
-             }
-          }
-      }
-  }
-
-   return resultado;
-}
-
 void IngresarHorariodeClases()
->>>>>>> origin/master
 {
       struct DatosHoraClase hora;
+      char buscar[2] = " ";
+		char reemplazar[2] = "_";
+      char nombreMateria[50] = "";
+      char nombreSemestre[50] = "";
+      
       printf("\n Por favor ingrese los siguientes datos: \n");
       fflush(stdin);
       do
@@ -179,7 +181,6 @@ void IngresarHorariodeClases()
 
       do
       {
-<<<<<<< HEAD
       	do
       	{
       		printf("\n Hora Inicio: ");
@@ -209,38 +210,17 @@ void IngresarHorariodeClases()
       	} while(hora.MinutoFin>60);
       } while(!ValidarHoras(hora));
 
-      strcpy(hora.dia_semana,dia);
-      printf("\n Hora Inicio:");
-      scanf("%s",hora.hora_inicio);
-      printf("\n Hora Fin:");
-      scanf("%s",hora.hora_fin);
-      return hora;
-=======
-      	printf("\n Hora Inicio: ");
-      	scanf("%d",&hora.HoraInicio);
-         fflush(stdin);
-      } while(hora.HoraInicio>24);
 
-      do
-      {
-      	printf("\n Minuto Inicio: ");
-      	scanf("%d",&hora.MinutoInicio);
-         fflush(stdin);
-      } while(hora.MinutoInicio>60);
+      quitar_espacios(hora.NombreMateria,nombreMateria);
+      strcpy(hora.NombreMateria,"");
+      strcpy(hora.NombreMateria,nombreMateria);
 
-      do
-      {
-      	printf("\n Hora Fin: ");
-      	scanf("%d",&hora.HoraFin);
-         fflush(stdin);
-      } while(hora.HoraFin>24);
+      quitar_espacios(hora.NombreSemestre,nombreSemestre);
+      strcpy(hora.NombreSemestre,"");
+      strcpy(hora.NombreSemestre,nombreSemestre);
 
-      do
-      {
-      	printf("\n Minuto Fin: ");
-      	scanf("%d",&hora.MinutoFin);
-         fflush(stdin);
-      } while(hora.MinutoFin>60);
+      remplace(hora.NombreMateria,buscar,reemplazar);
+      remplace(hora.NombreSemestre,buscar,reemplazar);
 
 
       // Validar Hora de Clase
@@ -255,11 +235,10 @@ void IngresarHorariodeClases()
     	}
       else
       {
-      	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.DiaSemana<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.HoraFin<<"\n\n";
+      	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.DiaSemana<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.HoraFin<<endl;
 			horario.close();
       }
      // Salir
->>>>>>> origin/master
 }
 
 
