@@ -23,6 +23,48 @@ const int TamanioLogico=5;
 
 
 //PROTOTIPO DE FUNCIONES
+void imprimir(){
+ ifstream lectura;
+  char NombreMateria[30];
+   char NombreSemestre[20];
+   char DiaSemana[4];
+   int HoraInicio;
+   int MinutoInicio;
+   int HoraFin;
+   int MinutoFin;
+ lectura.open("horario.txt",ios::in);
+
+ if(!lectura.fail()){
+ cout<<"Listado de Horario"<<endl;
+ cout<<"____________________________"<<endl;
+
+
+          lectura>>NombreMateria;
+ while(!lectura.fail())
+ {
+   lectura>>NombreSemestre;
+   lectura>>DiaSemana;
+   lectura>>HoraInicio;
+   lectura>>MinutoInicio;
+   lectura>>HoraFin;
+   lectura>>MinutoFin;
+
+  cout<<"Nombre Materia: "<<NombreMateria<<endl;
+  cout<<"Nombre Semestre: "<<NombreSemestre<<endl;
+  cout<<"Dia Semana: "<<DiaSemana<<endl;
+  cout<<"Hora Inicio: "<<HoraInicio<<"H"<<MinutoInicio<<endl;
+  cout<<"Hora Inicio: "<<HoraFin<<"H"<<MinutoFin<<endl;
+  lectura>>NombreMateria;
+    cout<<"____________________________"<<endl;
+    fflush(stdin);
+ }
+
+ }
+ lectura.close();
+ fflush(stdin);
+} 
+
+despues de 
 
 int Menu();
 void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]);
@@ -33,6 +75,7 @@ bool validarHoras(DatosHoraClase hora);
 void IngresarHorariodeClases();
 
 void VerHorarioHoy();
+ imprimir();
 void VerhHorariodelaSemana();
 
 //Funcion Principal
