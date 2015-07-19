@@ -9,64 +9,36 @@
 const int TamanioLogico=5;
   struct DatosHoraClase
   {
-   char NombreMateria[30];
-   char NombreSemestre[20];
+   char NombreMateria[50];
+   char NombreSemestre[50];
+   char NombreDia[10];
    char DiaSemana[4];
    int HoraInicio;
    int MinutoInicio;
    int HoraFin;
    int MinutoFin;
+   int Orden;
   };
-   struct DatosHoraClase HoraClase[TamanioLogico];
+
 
 
 //PROTOTIPO DE FUNCIONES
 
-void remplace(char cadena[50], char buscar[2], char reemplazar[2]){
-
-char * puntero;
-puntero = strstr (cadena,buscar);
-while(puntero != NULL){
-  strncpy (puntero,reemplazar,1);
-  puntero = strstr (cadena,buscar);
-}
-
-}
-
-void quitar_espacios(char entrada[50], char salida[50])
-{
-    int inicio_pos;
-    int longitud;
-    int actual_pos = 0;
-    //Avanza en la cadena hasta que detecta un caracter valido
-    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
-    {
-        actual_pos ++;
-    }
-    inicio_pos = actual_pos;
-
-    //Retrocede en la cadena hasta encontrar un caracter valido
-    actual_pos = strlen(entrada) - 1;
-    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
-    {
-        actual_pos --;
-    }
-    longitud = actual_pos - inicio_pos + 1;
-	 strncpy(salida, entrada + inicio_pos, longitud);
-}
-
-void Tiempo();
 int Menu();
+void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]);
+void quitarEspacios(char entrada[50], char salida[50]);
+bool validarNombre(char nombre[50]);
+bool obtenerDiaSemana(DatosHoraClase &hora);
+bool validarHoras(DatosHoraClase hora);
 void IngresarHorariodeClases();
+
 void VerHorarioHoy();
 void VerhHorariodelaSemana();
-void Salir();
-void Congelar ();
+
 //Funcion Principal
 int main ()
 {
  int opcion;
- Tiempo();
  opcion = Menu();
  while (opcion!=4)
  {
@@ -88,18 +60,55 @@ int main ()
  }
  return(0);
 }
- void Tiempo()
- {
-  SYSTEMTIME hora;
-  GetLocalTime(&hora);
- // printf("\t\t HORA DE INICIO:%02d:%02d:%02d\n",hora.WHour,hora.wMinute,hora.wSecond);   Genera error no compila
- }
- void Congelar()
- {
-  system("PAUSE");
- }
 
 //  Funciones de Sistema Modular
+int Menu()
+{
+	int opcion;
+ 	printf("\t Bienvenidos:");
+ 	printf("\t \t \n Menu de opciones:");
+ 	printf("\n 1.Ingresar una nueva hora de clases:");
+ 	printf("\n 2.Ver el horario de hoy:");
+ 	printf("\n 3.Horario de la semana:");
+ 	printf("\n 4.Salir:");
+ 	printf("\n Por favor seleccione la opcion que desea:\n");
+ 	scanf("%d", &opcion);
+   fflush(stdin);
+ 	return opcion;
+}
+
+void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]){
+
+char * puntero;
+puntero = strstr (cadena,buscar);
+while(puntero != NULL){
+  strncpy (puntero,reemplazar,1);
+  puntero = strstr (cadena,buscar);
+}
+
+}
+
+void quitarEspacios(char entrada[50], char salida[50])
+{
+    int inicio_pos;
+    int longitud;
+    int actual_pos = 0;
+    //Avanza en la cadena hasta que detecta un caracter valido
+    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
+    {
+        actual_pos ++;
+    }
+    inicio_pos = actual_pos;
+
+    //Retrocede en la cadena hasta encontrar un caracter valido
+    actual_pos = strlen(entrada) - 1;
+    while(entrada[actual_pos] == ' ' || entrada[actual_pos] == '\n' || entrada[actual_pos] == '\t')
+    {
+        actual_pos --;
+    }
+    longitud = actual_pos - inicio_pos + 1;
+	 strncpy(salida, entrada + inicio_pos, longitud);
+}
 
 // Validar nombre no vacio
 bool validarNombre(char nombre[50])
@@ -114,28 +123,39 @@ bool validarNombre(char nombre[50])
 }
 
 // Validar y Obtener El dia de la Semana
-char* obtenerDiaSemana(DatosHoraClase hora)
+bool obtenerDiaSemana(DatosHoraClase &hora)
 {
-   char resultado[10] = "";
+   bool resultado = false;
 	if (strcmp(hora.DiaSemana,"LUN")==0 || strcmp(hora.DiaSemana,"Lun")==0 || strcmp(hora.DiaSemana,"lun")==0) {
-   	strcpy(resultado,"Lunes");
+   	strcpy(hora.NombreDia,"Lunes");
+      hora.Orden = 1;
+      resultado = true;
   	}
    if (strcmp(hora.DiaSemana,"MAR")==0 || strcmp(hora.DiaSemana,"Mar")==0 || strcmp(hora.DiaSemana,"mar")==0) {
-   	strcpy(resultado,"Martes");
+   	strcpy(hora.NombreDia,"Martes");
+      hora.Orden = 2;
+      resultado = true;
   	}
    if (strcmp(hora.DiaSemana,"MIE")==0 || strcmp(hora.DiaSemana,"Mie")==0 || strcmp(hora.DiaSemana,"mie")==0) {
-   	strcpy(resultado,"Miercoles");
+   	strcpy(hora.NombreDia,"Miercoles");
+      hora.Orden = 3;
+      resultado = true;
   	}
    if (strcmp(hora.DiaSemana,"JUE")==0 || strcmp(hora.DiaSemana,"Jue")==0 || strcmp(hora.DiaSemana,"jue")==0) {
-   	strcpy(resultado,"Jueves");
+   	strcpy(hora.NombreDia,"Jueves");
+      hora.Orden = 4;
+      resultado = true;
   	}
    if (strcmp(hora.DiaSemana,"VIE")==0 || strcmp(hora.DiaSemana,"Vie")==0 || strcmp(hora.DiaSemana,"vie")==0) {
-   	strcpy(resultado,"Viernes");
+   	strcpy(hora.NombreDia,"Viernes");
+      hora.Orden = 5;
+      resultado = true;
   	}
    return resultado;
 }
 
-bool ValidarHoras(DatosHoraClase hora){
+bool validarHoras(DatosHoraClase hora)
+{
 
 	bool resultado = false;
    int hora_inicio = hora.MinutoInicio + (hora.HoraInicio * 60);
@@ -155,7 +175,7 @@ void IngresarHorariodeClases()
 		char reemplazar[2] = "_";
       char nombreMateria[50] = "";
       char nombreSemestre[50] = "";
-      
+
       printf("\n Por favor ingrese los siguientes datos: \n");
       fflush(stdin);
       do
@@ -170,14 +190,12 @@ void IngresarHorariodeClases()
       	gets(hora.NombreSemestre);
          fflush(stdin);
       } while (!validarNombre(hora.NombreSemestre));
-      char dia[10];
        do
 		{
       	printf("\n Dia de la Semana: ");
-         gets(hora.DiaSemana);
-         strcpy(dia,obtenerDiaSemana(hora));
+      	gets(hora.DiaSemana);
          fflush(stdin);
-      } while(strlen(dia)==0);
+      } while(!obtenerDiaSemana(hora));
 
       do
       {
@@ -208,19 +226,20 @@ void IngresarHorariodeClases()
       		scanf("%d",&hora.MinutoFin);
          	fflush(stdin);
       	} while(hora.MinutoFin>60);
-      } while(!ValidarHoras(hora));
+      } while(!validarHoras(hora));
 
 
-      quitar_espacios(hora.NombreMateria,nombreMateria);
+      quitarEspacios(hora.NombreMateria,nombreMateria);
       strcpy(hora.NombreMateria,"");
       strcpy(hora.NombreMateria,nombreMateria);
 
-      quitar_espacios(hora.NombreSemestre,nombreSemestre);
+      strcpy(nombreSemestre,"");
+      quitarEspacios(hora.NombreSemestre,nombreSemestre);
       strcpy(hora.NombreSemestre,"");
       strcpy(hora.NombreSemestre,nombreSemestre);
 
-      remplace(hora.NombreMateria,buscar,reemplazar);
-      remplace(hora.NombreSemestre,buscar,reemplazar);
+      cambioEspaciosNombres(hora.NombreMateria,buscar,reemplazar);
+      cambioEspaciosNombres(hora.NombreSemestre,buscar,reemplazar);
 
 
       // Validar Hora de Clase
@@ -235,42 +254,11 @@ void IngresarHorariodeClases()
     	}
       else
       {
-      	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.DiaSemana<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.HoraFin<<endl;
+      	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.NombreDia<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.HoraFin<<" "<<hora.Orden<<endl;
 			horario.close();
       }
      // Salir
 }
 
 
-
-int subMenuDiasSemana()
-{
-   int opcion;
-	printf("\n horario:");
-   printf("\n escoja el dia:");
-   printf("\n 1.Lunes");
-   printf("\n 2.Martes");
-   printf("\n 3.Miercoles");
-   printf("\n 4.Jueves");
-   printf("\n 5.Viernes");
-	printf("\n Ingrese la opcion porfavor:");
-   scanf("%d",&opcion);
-   return opcion;
-}
-
-
-int Menu()
-{
-	int opcion;
- 	printf("\t Bienvenidos:");
- 	printf("\t \t \n Menu de opciones:");
- 	printf("\n 1.Ingresar una nueva hora de clases:");
- 	printf("\n 2.Ver el horario de hoy:");
- 	printf("\n 3.Horario de la semana:");
- 	printf("\n 4.Salir:");
- 	printf("\n Por favor seleccione la opcion que desea:\n");
- 	scanf("%d", &opcion);
-   fflush(stdin);
- 	return opcion;
-}
 
