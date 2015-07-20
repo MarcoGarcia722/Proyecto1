@@ -16,16 +16,16 @@ const int TamanioLogico=5;
    int MinutoInicio;
    int HoraFin;
    int MinutoFin;
+   int orden;
   };
-   struct DatosHoraClase HoraClase[TamanioLogico];
 
 
 //PROTOTIPO DE FUNCIONES
 void Tiempo();
 int Menu();
 void IngresarHorariodeClases();
-void VerHorarioHoy();
-void VerhHorariodelaSemana();
+void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras);
+void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras);
 void Salir();
 void Congelar ();
 //Funcion Principal
@@ -42,13 +42,22 @@ int main ()
           IngresarHorariodeClases();
           break;
    case 2:
-         //Ver EL HORARIO DE HOY
-         //VERHORARIOhOY();
+         //Ver el Horario de Hoy
+         VerHorarioHoy(horas,numeroHoras);
          break;
    case 3:
          //Ver el horario de la semana
-         //verHorarioSeman();
+         VerhHorariodelaSemana(horas,numeroHoras);
          break;
+   }
+
+void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras)
+{
+	int numeroDia, horaActual;
+ 	numeroDia = obtenerDiaActual();
+   horaActual = obtenerHoraActual(numeroDia);
+   imprimir(horas,numeroHoras,horaActual);
+}
   }
    opcion = Menu();
  }
@@ -151,7 +160,6 @@ char resultado[10];
 }
 
 void IngresarHorariodeClases()
->>>>>>> origin/master
 {
       struct DatosHoraClase hora;
       printf("\n Por favor ingrese los siguientes datos: \n");
@@ -179,7 +187,6 @@ void IngresarHorariodeClases()
 
       do
       {
-<<<<<<< HEAD
       	do
       	{
       		printf("\n Hora Inicio: ");
@@ -215,7 +222,7 @@ void IngresarHorariodeClases()
       printf("\n Hora Fin:");
       scanf("%s",hora.hora_fin);
       return hora;
-=======
+
       	printf("\n Hora Inicio: ");
       	scanf("%d",&hora.HoraInicio);
          fflush(stdin);
@@ -259,7 +266,6 @@ void IngresarHorariodeClases()
 			horario.close();
       }
      // Salir
->>>>>>> origin/master
 }
 
 
@@ -293,5 +299,17 @@ int Menu()
  	scanf("%d", &opcion);
    fflush(stdin);
  	return opcion;
+}
+
+ void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras)
+{
+	struct DatosHoraClase horasHoy[50];
+ 	int numeroHorasHoy;
+   int numeroDia, horaActual;
+ 	numeroDia = obtenerDiaActual();
+ 	horaActual = obtenerHoraActual(numeroDia);
+   numeroHorasHoy = obtenerHorarioDadoDia(horas,numeroHoras,horasHoy,numeroDia);
+   printf("%d",numeroDia);
+   imprimir(horasHoy,numeroHorasHoy,horaActual);
 }
 
