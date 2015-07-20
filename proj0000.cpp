@@ -4,6 +4,8 @@
 #include <string.h>
 #include <iostream.h>
 #include <fstream.h>
+#include <time.h>
+#include <dos.h>
 
 // Definicion de Struct
 const int TamanioLogico=5;
@@ -23,48 +25,6 @@ const int TamanioLogico=5;
 
 
 //PROTOTIPO DE FUNCIONES
-void imprimir(){
- ifstream lectura;
-  char NombreMateria[30];
-   char NombreSemestre[20];
-   char DiaSemana[4];
-   int HoraInicio;
-   int MinutoInicio;
-   int HoraFin;
-   int MinutoFin;
- lectura.open("horario.txt",ios::in);
-
- if(!lectura.fail()){
- cout<<"Listado de Horario"<<endl;
- cout<<"____________________________"<<endl;
-
-
-          lectura>>NombreMateria;
- while(!lectura.fail())
- {
-   lectura>>NombreSemestre;
-   lectura>>DiaSemana;
-   lectura>>HoraInicio;
-   lectura>>MinutoInicio;
-   lectura>>HoraFin;
-   lectura>>MinutoFin;
-
-  cout<<"Nombre Materia: "<<NombreMateria<<endl;
-  cout<<"Nombre Semestre: "<<NombreSemestre<<endl;
-  cout<<"Dia Semana: "<<DiaSemana<<endl;
-  cout<<"Hora Inicio: "<<HoraInicio<<"H"<<MinutoInicio<<endl;
-  cout<<"Hora Inicio: "<<HoraFin<<"H"<<MinutoFin<<endl;
-  lectura>>NombreMateria;
-    cout<<"____________________________"<<endl;
-    fflush(stdin);
- }
-
- }
- lectura.close();
- fflush(stdin);
-} 
-
-despues de 
 
 int Menu();
 void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]);
@@ -72,12 +32,17 @@ void quitarEspacios(char entrada[50], char salida[50]);
 bool validarNombre(char nombre[50]);
 bool obtenerDiaSemana(DatosHoraClase &hora);
 bool validarHoras(DatosHoraClase hora);
+
+int obtenerHorarioArchivo(DatosHoraClase horas[100]);
+void ordenarHorario(DatosHoraClase horas[100], int numeroHoras);
+void imprimir(DatosHoraClase horas[100], int numeroHoras, int horaActual);
+
+int obtenerDiaActual();
+int obtenerHoraActual(int dia);
 void IngresarHorariodeClases();
-
 void VerHorarioHoy();
- imprimir();
-void VerhHorariodelaSemana();
 
+void VerhHorariodelaSemana();
 //Funcion Principal
 int main ()
 {
@@ -303,5 +268,119 @@ void IngresarHorariodeClases()
      // Salir
 }
 
+// leer Archivos
 
+int obtenerDiaActual()
+{
+	int numerodia;
+   struct dosdate_t diadelasemana;
+   _dos_getdate(&diadelasemana);
+   numerodia=diadelasemana.dayofweek;
+   return numerodia;
+}
+
+int obtenerHoraActual(int dia)
+{
+   int hora,minutos;
+	struct time t;
+	gettime(&t);
+	hora=t.ti_hour;
+	minutos=t.ti_min;
+	return minutos + (hora * 60) + (dia * 24 * 60);
+}
+
+int obtenerHorarioArchivo(DatosHoraClase horas[100])
+{
+ ifstream lectura;
+ int contador = 0;
+ char buscar[2] = "_";
+ char reemplazar[2] = " ";
+ lectura.open("horario.txt",ios::in);
+
+ if(!lectura.fail()){
+
+ lectura>>horas[contador].NombreMateria;
+ while(!lectura.fail())
+ {
+   lectura>>horas[contador].NombreSemestre;
+   lectura>>horas[contador].NombreDia;
+   lectura>>horas[contador].HoraInicio;
+   lectura>>horas[contador].MinutoInicio;
+   lectura>>horas[contador].HoraFin;
+   lectura>>horas[contador].MinutoFin;
+   lectura>>horas[contador].Orden;
+   cambioEspaciosNombres(horas[contador].NombreMateria,buscar,reemplazar);
+   cambioEspaciosNombres(horas[contador].NombreSemestre,buscar,reemplazar);
+   contador =  contador + 1;
+   lectura>>horas[contador].NombreMateria;
+   fflush(stdin);
+ }
+
+ }
+ lectura.close();
+ fflush(stdin);
+
+ ordenarHorario(horas, contador - 1);
+ return contador - 1;
+
+}
+
+void ordenarHorario(DatosHoraClase horas[100], int numeroHoras)
+{
+	int i,j;
+   struct DatosHoraClase hora;
+   i = 0;            // Ordena los dias
+   while(i<=numeroHoras){
+   	j = 0;
+      while(j<=numeroHoras){
+         if(horas[i].Orden < horas[j].Orden){
+           hora = horas[i];
+           horas[i] =  horas[j];
+           horas[j] = hora;
+         }
+         j =  j + 1;
+      }
+      i = i + 1;
+   }
+
+   i = j = 0;                  // Ordena las Horas
+   int fechaInicio, fechaInicio1;
+   while(i<=numeroHoras){
+   	j = 0;
+      while(j<=numeroHoras){
+         if(horas[i].Orden == horas[j].Orden){
+            fechaInicio = horas[i].MinutoInicio + (horas[i].HoraInicio * 60);
+            fechaInicio1 = horas[j].MinutoInicio + (horas[j].HoraInicio * 60);
+         	if(fechaInicio < fechaInicio1) {
+           		hora = horas[i];
+           		horas[i] =  horas[j];
+           		horas[j] = hora;
+            }
+         }
+         j =  j + 1;
+      }
+      i = i + 1;
+   }
+
+}
+
+void imprimir(DatosHoraClase horas[100], int numeroHoras, int horaActual)
+{
+ int contador = 0;
+ int horaFin;
+ printf("Listado de Horario \n");
+ printf("____________________________\n\n");
+ while(contador <= numeroHoras)
+ {
+ 	horaFin = horas[contador].MinutoFin + (horas[contador].HoraFin * 60) + (horas[contador].Orden * 24 * 60);
+   if(horaFin >= horaActual)
+   {
+   	printf("%s: %02dH%02d - %02dH%02d \n\n",horas[contador].NombreDia,horas[contador].HoraInicio,horas[contador].MinutoInicio,horas[contador].HoraFin,horas[contador].MinutoFin);
+      printf("%s \n",horas[contador].NombreSemestre);
+      printf("%s \n",horas[contador].NombreMateria);
+  		printf("____________________________\n\n");
+  } 
+  contador = contador + 1;
+ }
+}
 
