@@ -8,7 +8,6 @@
 #include <dos.h>
 
 // Definicion de Struct
-const int TamanioLogico=5;
   struct DatosHoraClase
   {
    char NombreMateria[50];
@@ -19,26 +18,14 @@ const int TamanioLogico=5;
    int MinutoInicio;
    int HoraFin;
    int MinutoFin;
-<<<<<<< HEAD
-   int orden;
-  };
-=======
    int Orden;
   };
 
->>>>>>> f360e9dc49716456bf4eaac899e00aceaf58d763
 
 
 //PROTOTIPO DE FUNCIONES
 
 int Menu();
-<<<<<<< HEAD
-void IngresarHorariodeClases();
-void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras);
-void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras);
-void Salir();
-void Congelar ();
-=======
 void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]);
 void quitarEspacios(char entrada[50], char salida[50]);
 bool validarNombre(char nombre[50]);
@@ -54,9 +41,9 @@ int obtenerHorarioDadoDia(DatosHoraClase horas[100], int numeroHoras,DatosHoraCl
 void ordenarHorario(DatosHoraClase horas[100], int numeroHoras);
 void imprimir(DatosHoraClase horas[100], int numeroHoras, int horaActual);
 
-void VerHorarioHoy();
-void VerHorariodelaSemana();
->>>>>>> f360e9dc49716456bf4eaac899e00aceaf58d763
+void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras);
+void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras);
+
 //Funcion Principal
 int main ()
 {
@@ -65,17 +52,16 @@ int main ()
  int numeroHoras;
 
  opcion = Menu();
-
  if(opcion!=4)
  {
    numeroHoras = obtenerHorarioArchivo(horas);
  }
-
  while (opcion!=4)
  {
   switch(opcion)
   {
    case 1:
+   		 // Ingresa Horario de Clases
           IngresarHorariodeClases(horas,numeroHoras);
           numeroHoras = obtenerHorarioArchivo(horas);
           break;
@@ -87,15 +73,6 @@ int main ()
          //Ver el horario de la semana
          VerhHorariodelaSemana(horas,numeroHoras);
          break;
-   }
-
-void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras)
-{
-	int numeroDia, horaActual;
- 	numeroDia = obtenerDiaActual();
-   horaActual = obtenerHoraActual(numeroDia);
-   imprimir(horas,numeroHoras,horaActual);
-}
   }
    opcion = Menu();
  }
@@ -106,22 +83,27 @@ void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras)
 int Menu()
 {
 	int opcion;
- 	printf("\t Bienvenidos:");
- 	printf("\t \t \n Menu de opciones:");
- 	printf("\n 1.Ingresar una nueva hora de clases:");
- 	printf("\n 2.Ver el horario de hoy:");
- 	printf("\n 3.Horario de la semana:");
- 	printf("\n 4.Salir:");
- 	printf("\n Por favor seleccione la opcion que desea:\n");
+   system("cls");
+   system("color 2");
+	printf("=============================================================================== \n");
+   gotoxy(25,2);
+   printf("MENU DE OPCIONES \n");
+	printf("===============================================================================");
+ 	printf("\n 1.Ingresar una nueva hora de clases");
+ 	printf("\n 2.Ver el horario de hoy");
+ 	printf("\n 3.Horario de la semana");
+ 	printf("\n 4.Salir \n \n");
+   printf("===============================================================================");
+ 	printf("\n \n Por favor seleccione una opcion:");
  	scanf("%d", &opcion);
    fflush(stdin);
- 	return opcion;
+	return opcion;
 }
 
 void cambioEspaciosNombres(char cadena[50], char buscar[2], char reemplazar[2]){
 
 char * puntero;
-puntero = strstr (cadena,buscar);
+puntero =strstr (cadena,buscar);
 while(puntero != NULL){
   strncpy (puntero,reemplazar,1);
   puntero = strstr (cadena,buscar);
@@ -199,9 +181,9 @@ bool validarHoras(DatosHoraClase hora)
 {
 
 	bool resultado = false;
-   int hora_inicio = hora.MinutoInicio + (hora.HoraInicio * 60);
-   int hora_fin = hora.MinutoFin + (hora.HoraFin * 60);
-   if(hora_inicio < hora_fin){
+   int horaInicio = hora.MinutoInicio + (hora.HoraInicio * 60);
+   int horaFin = hora.MinutoFin + (hora.HoraFin * 60);
+   if(horaInicio < horaFin){
         resultado = true;
    } else {
     	printf("\n La hora de Inicio debe ser Menor que la hora Fin \n");
@@ -234,19 +216,15 @@ bool validarHorasDia(DatosHoraClase hora, DatosHoraClase horas[100], int numeroH
    return resultado;
 }
 
-<<<<<<< HEAD
-void IngresarHorariodeClases()
-=======
 
 void IngresarHorariodeClases(DatosHoraClase horas[100], int numeroHoras)
->>>>>>> f360e9dc49716456bf4eaac899e00aceaf58d763
 {
       struct DatosHoraClase hora;
       char buscar[2] = " ";
 		char reemplazar[2] = "_";
       char nombreMateria[50] = "";
       char nombreSemestre[50] = "";
-
+      system("cls");
       printf("\n Por favor ingrese los siguientes datos: \n");
       fflush(stdin);
       do
@@ -270,69 +248,38 @@ void IngresarHorariodeClases(DatosHoraClase horas[100], int numeroHoras)
 
       do
       {
-<<<<<<< HEAD
+      do
+      {
       	do
       	{
       		printf("\n Hora Inicio: ");
       		scanf("%d",&hora.HoraInicio);
          	fflush(stdin);
       	} while(hora.HoraInicio>24);
-=======
->>>>>>> f360e9dc49716456bf4eaac899e00aceaf58d763
 
       	do
       	{
-      		do
-      		{
-      			printf("\n Hora Inicio: ");
-      			scanf("%d",&hora.HoraInicio);
-         		fflush(stdin);
-      		} while(hora.HoraInicio>24);
+      		printf("\n Minuto Inicio: ");
+      		scanf("%d",&hora.MinutoInicio);
+         	fflush(stdin);
+      	} while(hora.MinutoInicio>60);
 
-      		do
-      		{
-      			printf("\n Minuto Inicio: ");
-      			scanf("%d",&hora.MinutoInicio);
-         		fflush(stdin);
-      		} while(hora.MinutoInicio>60);
+      	do
+      	{
+      		printf("\n Hora Fin: ");
+      		scanf("%d",&hora.HoraFin);
+         	fflush(stdin);
+      	} while(hora.HoraFin>24);
 
-<<<<<<< HEAD
       	do
       	{
       		printf("\n Minuto Fin: ");
       		scanf("%d",&hora.MinutoFin);
          	fflush(stdin);
       	} while(hora.MinutoFin>60);
-      } while(!ValidarHoras(hora));
+      } while(!validarHoras(hora));
+      // Validar Hora de Clase
 
-      strcpy(hora.dia_semana,dia);
-      printf("\n Hora Inicio:");
-      scanf("%s",hora.hora_inicio);
-      printf("\n Hora Fin:");
-      scanf("%s",hora.hora_fin);
-      return hora;
-
-      	printf("\n Hora Inicio: ");
-      	scanf("%d",&hora.HoraInicio);
-         fflush(stdin);
-      } while(hora.HoraInicio>24);
-=======
-      		do
-      		{
-      			printf("\n Hora Fin: ");
-      			scanf("%d",&hora.HoraFin);
-         		fflush(stdin);
-      		} while(hora.HoraFin>24);
->>>>>>> f360e9dc49716456bf4eaac899e00aceaf58d763
-
-      		do
-      		{
-      			printf("\n Minuto Fin: ");
-      			scanf("%d",&hora.MinutoFin);
-         		fflush(stdin);
-      		} while(hora.MinutoFin>60);
-      	} while(!validarHoras(hora));
-      // Validar Hora de Clase        
       } while(!validarHorasDia(hora, horas, numeroHoras));
 
       quitarEspacios(hora.NombreMateria,nombreMateria);
@@ -347,6 +294,8 @@ void IngresarHorariodeClases(DatosHoraClase horas[100], int numeroHoras)
       cambioEspaciosNombres(hora.NombreMateria,buscar,reemplazar);
       cambioEspaciosNombres(hora.NombreSemestre,buscar,reemplazar);
 
+
+
      // Guardar Hora de Clase
      	ofstream horario;
       horario.open("horario.txt",ios::out|ios::app);
@@ -360,10 +309,9 @@ void IngresarHorariodeClases(DatosHoraClase horas[100], int numeroHoras)
       	horario<<hora.NombreMateria<<" "<<hora.NombreSemestre<<" "<<hora.NombreDia<<" "<<hora.HoraInicio<<" "<<hora.MinutoInicio<<" "<<hora.HoraFin<<" "<<hora.MinutoFin<<" "<<hora.Orden<<endl;
 			horario.close();
       }
-     // Salir
 }
 
-// leer Archivos
+// Leeer Archivos
 
 int obtenerDiaActual()
 {
@@ -459,6 +407,46 @@ void ordenarHorario(DatosHoraClase horas[100], int numeroHoras)
 
 }
 
+int obtenerHorarioDadoDia(DatosHoraClase horas[100], int numeroHoras,DatosHoraClase horasHoy[50], int numeroDia )
+{
+	int i, j;
+   i = 0;
+   j = 0;
+   while(i<=numeroHoras){
+      if(horas[i].Orden == numeroDia){
+      	horasHoy[j] = horas[i];
+         j = j + 1;
+      }
+      i = i + 1;
+   }
+   return j - 1;
+}
+
+void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras)
+{
+	system("cls");
+	struct DatosHoraClase horasHoy[50];
+ 	int numeroHorasHoy;
+   int numeroDia, horaActual;
+ 	numeroDia = obtenerDiaActual();
+ 	horaActual = obtenerHoraActual(numeroDia);
+   numeroHorasHoy = obtenerHorarioDadoDia(horas,numeroHoras,horasHoy,numeroDia);
+  // printf("%d",numeroDia);
+   imprimir(horasHoy,numeroHorasHoy,horaActual);
+   system("pause");
+}
+
+void VerhHorariodelaSemana(DatosHoraClase horas[100], int numeroHoras)
+{
+	system("cls");
+	int numeroDia, horaActual;
+ 	numeroDia = obtenerDiaActual();
+   horaActual = obtenerHoraActual(numeroDia);
+   imprimir(horas,numeroHoras,horaActual);
+   system("pause");
+}
+
+
 void imprimir(DatosHoraClase horas[100], int numeroHoras, int horaActual)
 {
  int contador = 0;
@@ -479,30 +467,6 @@ void imprimir(DatosHoraClase horas[100], int numeroHoras, int horaActual)
  }
 }
 
-int obtenerHorarioDadoDia(DatosHoraClase horas[100], int numeroHoras,DatosHoraClase horasHoy[50], int numeroDia )
-{
-	int i, j;
-   i = 0;
-   j = 0;
-   while(i<=numeroHoras){
-      if(horas[i].Orden == numeroDia){
-      	horasHoy[j] = horas[i];
-         j = j + 1;
-      }
-      i = i + 1;
-   }
-   return j - 1;
-}
 
- void VerHorarioHoy(DatosHoraClase horas[100], int numeroHoras)
-{
-	struct DatosHoraClase horasHoy[50];
- 	int numeroHorasHoy;
-   int numeroDia, horaActual;
- 	numeroDia = obtenerDiaActual();
- 	horaActual = obtenerHoraActual(numeroDia);
-   numeroHorasHoy = obtenerHorarioDadoDia(horas,numeroHoras,horasHoy,numeroDia);
-   printf("%d",numeroDia);
-   imprimir(horasHoy,numeroHorasHoy,horaActual);
-}
+
 
